@@ -1,0 +1,15 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Run/Debug",
+			"request": "launch",
+			"mainClass": "ru.antondobrov.filesorter.Launcher",
+			"projectName": "filesorter",
+			"preLaunchTask": "build",
+			"console": "internalConsole",
+			"javaExec": "${workspaceFolder}/target/filesorter.jar"
+		}
+	]
+}

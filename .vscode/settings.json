@@ -1,0 +1,47 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.autobuild.enabled": true,
+
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "redhat.java",
+    "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+    "java.format.settings.profile": "GoogleStyle",
+
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "java.completion.importOrder": [
+        "java",
+        "javax",
+        "javafx",
+        "org",
+        "com",
+        "ru",
+        "*"
+    ],
+    "java.maven.downloadSources": true,
+    "java.implementationCodeLens": "all",
+    "java.referencesCodeLens.enabled": true,
+
+    "java.debug.settings.hotCodeReplace": "auto",
+    "java.debug.settings.showStaticVariables": true,
+
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/thumbs.db": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "**/target/": true,
+        "**/bin/": true,
+        "**/*.class": true,
+    },
+
+    "files.encoding": "utf8",
+    "files.eol": "\n",
+}
