@@ -14,11 +14,13 @@
         <maven.compiler.target>21</maven.compiler.target>
         <javafx.version>23.0.2</javafx.version>
         <junit.version>5.13.4</junit.version>
-        <assertj.version>3.24.2</assertj.version>
-        <slf4j.version>2.0.17</slf4j.version>
+        <assertj.version>3.27.4</assertj.version>
+        <!-- <slf4j.version>2.0.17</slf4j.version>
         <logback.version>1.5.18</logback.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <jackson.version>2.19.2</jackson.version>
+        <jackson.version>2.19.2</jackson.version> -->
+        <mockito.version>5.16.1</mockito.version>
+        <!-- <equalsverifier.version>4.1</equalsverifier.version> -->
         <mainClassName>ru.antondobrov.filesorter.Main</mainClassName>
         <mainClassNameForShade>ru.antondobrov.filesorter.Launcher</mainClassNameForShade>
     </properties>
@@ -51,29 +53,55 @@
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
-        </dependency>
+        </dependency> -->
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
-        <dependency>
+        <!-- <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
-        </dependency>
+        </dependency> -->
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
+        <!-- <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
-        </dependency>
+        </dependency> -->
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
+        <!-- <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
+        </dependency> -->
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/nl.jqno.equalsverifier/equalsverifier -->
+        <!-- <dependency>
+            <groupId>nl.jqno.equalsverifier</groupId>
+            <artifactId>equalsverifier</artifactId>
+            <version>${equalsverifier.version}</version>
+            <scope>test</scope>
+        </dependency> -->
     </dependencies>
 
     <build>
