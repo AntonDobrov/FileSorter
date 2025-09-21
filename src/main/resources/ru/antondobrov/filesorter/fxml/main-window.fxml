@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <fx:include fx:id="configLoadPanel" source="config-load-panel.fxml" />
+        <fx:include fx:id="startDirectoryPathPanel" source="start-directory-path-panel.fxml" />
+        <fx:include fx:id="additionalSettingsPanel" source="additional-settings-panel.fxml" />
+        <fx:include fx:id="rulesPanel" source="rules-panel.fxml" />
+        <fx:include fx:id="sortingPanel" source="sorting-panel.fxml" />
+    </children>
+</VBox>
