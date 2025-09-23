@@ -2,12 +2,12 @@ package ru.antondobrov.filesorter.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import java.util.ResourceBundle;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.antondobrov.filesorter.utils.ILocalizer;
 
 @ExtendWith(MockitoExtension.class)
 public class ActionPolicyTest {
@@ -21,24 +21,23 @@ public class ActionPolicyTest {
     }
 
     @Mock
-    private ResourceBundle mockBundle;
+    private ILocalizer localizer;
 
     @ParameterizedTest
     @CsvSource({"YES, Always yes", "NO, Always no", "ASK, Always ask", "EMPTY, "})
     void shouldReturnTranslatedDisplayName_whenKeyExist(ActionPolicy actualPolicy,
             String expectedDisplayName) {
-        when(mockBundle.containsKey(actualPolicy.getDescription())).thenReturn(true);
-        when(mockBundle.getString(actualPolicy.getDescription())).thenReturn(expectedDisplayName);
+        when(localizer.get(actualPolicy.getDescription())).thenReturn(expectedDisplayName);
 
-        assertThat(actualPolicy.getDisplayName(mockBundle)).isEqualTo(expectedDisplayName);
+        assertThat(actualPolicy.getDisplayName(localizer)).isEqualTo(expectedDisplayName);
     }
 
     @ParameterizedTest
     @CsvSource({"YES", "NO", "ASK", "EMPTY"})
     void shouldReturnDescriptionInsteadOfDisplayName_whenKeyNotExist(ActionPolicy actualPolicy) {
-        when(mockBundle.containsKey(actualPolicy.getDescription())).thenReturn(false);
+        when(localizer.get(actualPolicy.getDescription()))
+                .thenReturn(actualPolicy.getDescription());
 
-        assertThat(actualPolicy.getDisplayName(mockBundle))
-                .isEqualTo(actualPolicy.getDescription());
+        assertThat(actualPolicy.getDisplayName(localizer)).isEqualTo(actualPolicy.getDescription());
     }
 }

@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/24.0.1"
+   xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="ru.antondobrov.filesorter.controllers.AdditionalSettingsPanelController">
    <children>
       <Label fx:id="additionalSettingsLabel" text="%additional.settings.label" />
       <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
@@ -23,11 +25,16 @@
          </rowConstraints>
          <children>
             <Label fx:id="traverseSubdirectoriesLabel" text="%traverse.subdirectories.label" />
-            <Label fx:id="deleteOnSuccessLabel" text="%delete.on.success.label" GridPane.rowIndex="1" />
-            <Label fx:id="copyInDestinationExistLabel" text="%copy.in.destinaton.exist.label" GridPane.rowIndex="2" />
-            <ChoiceBox fx:id="traverseSubdirectoriesChoiceBox" accessibleRole="CHECK_BOX" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-            <ChoiceBox fx:id="deleteOnSuccessChoiceBox" accessibleRole="CHECK_BOX" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="copyInDestinationExistChoiceBox" accessibleRole="CHECK_BOX" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+            <Label fx:id="deleteOnSuccessLabel" text="%delete.on.success.label"
+               GridPane.rowIndex="1" />
+            <Label fx:id="copyInDestinationExistLabel" text="%copy.in.destinaton.exist.label"
+               GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="traverseSubdirectoriesChoiceBox" accessibleRole="CHECK_BOX"
+               GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+            <ChoiceBox fx:id="deleteOnSuccessChoiceBox" accessibleRole="CHECK_BOX"
+               GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="copyInDestinationExistChoiceBox" accessibleRole="CHECK_BOX"
+               GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
