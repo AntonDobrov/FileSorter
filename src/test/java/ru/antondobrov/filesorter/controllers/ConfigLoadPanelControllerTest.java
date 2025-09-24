@@ -2,7 +2,6 @@ package ru.antondobrov.filesorter.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.io.File;
@@ -33,8 +32,8 @@ public class ConfigLoadPanelControllerTest {
     private Scene scene;
     @Mock
     private Stage window;
-    @Mock
-    File file;
+
+    private File file;
 
     private ConfigLoadPanelController configLoadPanelController;
 
@@ -45,6 +44,8 @@ public class ConfigLoadPanelControllerTest {
         when(event.getSource()).thenReturn(node);
         when(node.getScene()).thenReturn(scene);
         when(scene.getWindow()).thenReturn(window);
+
+        file = new File("/home/user/test");
     }
 
     @Test
@@ -53,7 +54,7 @@ public class ConfigLoadPanelControllerTest {
 
         configLoadPanelController.onSaveConfigButtonClick(event);
 
-        verify(configLoadService, times(1)).saveConfig(file);
+        verify(configLoadService).saveConfig(file);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class ConfigLoadPanelControllerTest {
 
         configLoadPanelController.onOpenConfigButtonClick(event);
 
-        verify(configLoadService, times(1)).openConfig(file);
+        verify(configLoadService).openConfig(file);
     }
 
     @Test

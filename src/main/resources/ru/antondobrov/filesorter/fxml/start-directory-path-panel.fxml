@@ -13,11 +13,11 @@
       <Label fx:id="startDirectoryPathLabel" text="%start.directory.path.label" />
       <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="NEVER">
          <children>
-            <TextField fx:id="stratDirectoryPathTetField" maxHeight="1.7976931348623157E308"
+            <TextField fx:id="startDirectoryPathTextField" maxHeight="1.7976931348623157E308"
                maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
                promptText="%start.directory.path.text.field.placeholder" HBox.hgrow="ALWAYS" />
             <Button fx:id="choiceStartDirectoryButton" mnemonicParsing="false"
-               onAction="#onChoiceStartDirectoryButtonClick" text="%choice.start.directory.buton" />
+               onAction="#onChoiceStartDirectoryButtonClick" text="%choice.start.directory.button" />
          </children>
          <VBox.margin>
             <Insets />

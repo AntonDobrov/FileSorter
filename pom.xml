@@ -21,6 +21,8 @@
         <jackson.version>2.19.2</jackson.version> -->
         <mockito.version>5.16.1</mockito.version>
         <!-- <equalsverifier.version>4.1</equalsverifier.version> -->
+
+        <testfx.version>4.0.18</testfx.version>
         <mainClassName>ru.antondobrov.filesorter.Main</mainClassName>
         <mainClassNameForShade>ru.antondobrov.filesorter.Launcher</mainClassNameForShade>
     </properties>
@@ -102,6 +104,12 @@
             <version>${equalsverifier.version}</version>
             <scope>test</scope>
         </dependency> -->
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit5</artifactId>
+            <version>${testfx.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

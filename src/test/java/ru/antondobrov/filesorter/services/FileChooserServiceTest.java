@@ -93,7 +93,7 @@ public class FileChooserServiceTest {
     void shouldAddCorrectJsonExtensionFilterForSaveDialog() {
         String descriptionKey = "json.files.extension.description";
         String expectedDescription = "JSON File (*.json)";
-        String expectedExtention = "*.json";
+        String expectedExtension = "*.json";
         when(localizer.get(descriptionKey)).thenReturn(expectedDescription);
 
         fileChooserService.showSaveDialog(null);
@@ -105,7 +105,7 @@ public class FileChooserServiceTest {
         assertThat(actualFilter.getDescription()).isEqualTo(expectedDescription);
         List<String> extensions = actualFilter.getExtensions();
         assertThat(extensions.size()).isEqualTo(1);
-        assertThat(extensions.get(0)).isEqualTo(expectedExtention);
+        assertThat(extensions.get(0)).isEqualTo(expectedExtension);
     }
 
     @Test
