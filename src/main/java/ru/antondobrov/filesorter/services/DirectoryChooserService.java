@@ -1,6 +1,8 @@
 package ru.antondobrov.filesorter.services;
 
 import java.io.File;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import ru.antondobrov.filesorter.utils.DirectoryChooserFactory;
@@ -16,12 +18,12 @@ public class DirectoryChooserService implements IDirectoryChooserService {
     }
 
     @Override
-    public File showDialog(Stage ownerWindow) {
-        String startDirectoryTitle = localizer.get("start.directory.choose.dialog.title");
+    public File showDialog(ActionEvent event) {
+        String startDirectoryTitle = localizer.get("directory.choose.dialog.title");
 
         DirectoryChooser directoryChooser = createDirectoryChooser(startDirectoryTitle);
 
-        return directoryChooser.showDialog(ownerWindow);
+        return directoryChooser.showDialog(getStageFromEvent(event));
     }
 
     private DirectoryChooser createDirectoryChooser(String title) {
@@ -31,5 +33,10 @@ public class DirectoryChooserService implements IDirectoryChooserService {
         File initialDirectory = new File(userHomeDirectory);
         directoryChooser.setInitialDirectory(initialDirectory);
         return directoryChooser;
+    }
+
+    private Stage getStageFromEvent(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        return (Stage) source.getScene().getWindow();
     }
 }

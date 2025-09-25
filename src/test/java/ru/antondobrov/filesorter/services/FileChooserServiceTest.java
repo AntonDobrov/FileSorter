@@ -7,7 +7,11 @@ import java.io.File;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,10 +41,22 @@ class FileChooserServiceTest {
 
     private FileChooserService fileChooserService;
 
+    @Mock
+    private ActionEvent event;
+    @Mock
+    private Node node;
+    @Mock
+    private Scene scene;
+    @Mock
+    private Stage window;
+
     @BeforeEach
     void setUp() {
         when(factory.create()).thenReturn(fileChooser);
         fileChooserService = new FileChooserService(localizer, factory);
+        when(event.getSource()).thenReturn(node);
+        when(node.getScene()).thenReturn(scene);
+        when(scene.getWindow()).thenReturn(window);
     }
 
     @Test
@@ -49,7 +65,7 @@ class FileChooserServiceTest {
         String expectedTitle = "Open configuration";
         when(localizer.get(titleKey)).thenReturn(expectedTitle);
 
-        fileChooserService.showOpenDialog(null);
+        fileChooserService.showOpenDialog(event);
 
         verify(fileChooser).setTitle(expectedTitle);
     }
@@ -58,7 +74,7 @@ class FileChooserServiceTest {
     void shouldSetUserHomeAsInitialDirectoryForOpenDialog() {
         String expectedUserHome = System.getProperty("user.home");
 
-        fileChooserService.showOpenDialog(null);
+        fileChooserService.showOpenDialog(event);
 
         verify(fileChooser).setInitialDirectory(initialDirectoryCaptor.capture());
         File actualDirectory = initialDirectoryCaptor.getValue();
@@ -82,7 +98,7 @@ class FileChooserServiceTest {
                 FXCollections.observableArrayList();
         when(fileChooser.getExtensionFilters()).thenReturn(actualFilters);
 
-        fileChooserService.showSaveDialog(null);
+        fileChooserService.showSaveDialog(event);
 
         verify(fileChooser).setTitle(expectedTitle);
     }
@@ -102,7 +118,7 @@ class FileChooserServiceTest {
                 FXCollections.observableArrayList();
         when(fileChooser.getExtensionFilters()).thenReturn(actualFilters);
 
-        fileChooserService.showSaveDialog(null);
+        fileChooserService.showSaveDialog(event);
 
         verify(localizer).get(nameKey);
         verify(fileChooser).setInitialFileName(expectedInitialName);
@@ -123,7 +139,7 @@ class FileChooserServiceTest {
                 FXCollections.observableArrayList();
         when(fileChooser.getExtensionFilters()).thenReturn(actualFilters);
 
-        fileChooserService.showSaveDialog(null);
+        fileChooserService.showSaveDialog(event);
 
         verify(localizer).get(descriptionKey);
 
@@ -149,7 +165,7 @@ class FileChooserServiceTest {
 
         String expectedUserHome = System.getProperty("user.home");
 
-        fileChooserService.showSaveDialog(null);
+        fileChooserService.showSaveDialog(event);
 
         verify(fileChooser).setInitialDirectory(initialDirectoryCaptor.capture());
         File actualDirectory = initialDirectoryCaptor.getValue();

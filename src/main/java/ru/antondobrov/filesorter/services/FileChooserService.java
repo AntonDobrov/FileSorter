@@ -1,6 +1,8 @@
 package ru.antondobrov.filesorter.services;
 
 import java.io.File;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ru.antondobrov.filesorter.utils.FileChooserFactory;
@@ -17,16 +19,16 @@ public class FileChooserService implements IFileChooserService {
     }
 
     @Override
-    public File showOpenDialog(Stage ownerWindow) {
+    public File showOpenDialog(ActionEvent event) {
         String openConfigFileDialogTitle = localizer.get("open.config.file.dialog.title");
 
         FileChooser fileChooser = createFileChooser(openConfigFileDialogTitle);
 
-        return fileChooser.showOpenDialog(ownerWindow);
+        return fileChooser.showOpenDialog(getStageFromEvent(event));
     }
 
     @Override
-    public File showSaveDialog(Stage ownerWindow) {
+    public File showSaveDialog(ActionEvent event) {
         String saveConfigFileDialogTitle = localizer.get("save.config.file.dialog.title");
 
         FileChooser fileChooser = createFileChooser(saveConfigFileDialogTitle);
@@ -41,7 +43,7 @@ public class FileChooserService implements IFileChooserService {
                 new FileChooser.ExtensionFilter(jsonFilesExtensionDescription, "*.json");
         fileChooser.getExtensionFilters().add(extensionFilter);
 
-        return fileChooser.showSaveDialog(ownerWindow);
+        return fileChooser.showSaveDialog(getStageFromEvent(event));
     }
 
     private FileChooser createFileChooser(String title) {
@@ -51,5 +53,10 @@ public class FileChooserService implements IFileChooserService {
         File initialDirectory = new File(userHomeDirectory);
         fileChooser.setInitialDirectory(initialDirectory);
         return fileChooser;
+    }
+
+    private Stage getStageFromEvent(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        return (Stage) source.getScene().getWindow();
     }
 }

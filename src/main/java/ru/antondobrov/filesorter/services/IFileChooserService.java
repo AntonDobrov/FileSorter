@@ -1,10 +1,10 @@
 package ru.antondobrov.filesorter.services;
 
 import java.io.File;
-import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 public interface IFileChooserService {
-    File showOpenDialog(Stage ownerWindow);
+    File showOpenDialog(ActionEvent event);
 
-    File showSaveDialog(Stage ownerWindow);
+    File showSaveDialog(ActionEvent event);
 }

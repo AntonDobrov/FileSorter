@@ -6,9 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.io.File;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,12 +23,6 @@ class ConfigLoadPanelControllerTest {
     private IFileChooserService fileChooserService;
     @Mock
     private ActionEvent event;
-    @Mock
-    private Node node;
-    @Mock
-    private Scene scene;
-    @Mock
-    private Stage window;
 
     private File file;
 
@@ -41,16 +32,12 @@ class ConfigLoadPanelControllerTest {
     void setUp() {
         configLoadPanelController =
                 new ConfigLoadPanelController(configLoadService, fileChooserService);
-        when(event.getSource()).thenReturn(node);
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getWindow()).thenReturn(window);
-
         file = new File("/home/user/test");
     }
 
     @Test
     void shouldSaveConfigWhenConfigFileIsChosen() {
-        when(fileChooserService.showSaveDialog(any(Stage.class))).thenReturn(file);
+        when(fileChooserService.showSaveDialog(any(ActionEvent.class))).thenReturn(file);
 
         configLoadPanelController.onSaveConfigButtonClick(event);
 
@@ -59,7 +46,7 @@ class ConfigLoadPanelControllerTest {
 
     @Test
     void shouldNotSaveConfigWhenConfigFileIsNotChosen() {
-        when(fileChooserService.showSaveDialog(any(Stage.class))).thenReturn(null);
+        when(fileChooserService.showSaveDialog(any(ActionEvent.class))).thenReturn(null);
 
         configLoadPanelController.onSaveConfigButtonClick(event);
 
@@ -68,7 +55,7 @@ class ConfigLoadPanelControllerTest {
 
     @Test
     void shouldOpenConfigWhenConfigFileIsChosen() {
-        when(fileChooserService.showOpenDialog(any(Stage.class))).thenReturn(file);
+        when(fileChooserService.showOpenDialog(any(ActionEvent.class))).thenReturn(file);
 
         configLoadPanelController.onOpenConfigButtonClick(event);
 
@@ -77,7 +64,7 @@ class ConfigLoadPanelControllerTest {
 
     @Test
     void shouldNotOpenConfigWhenConfigFileIsNotChosen() {
-        when(fileChooserService.showOpenDialog(any(Stage.class))).thenReturn(null);
+        when(fileChooserService.showOpenDialog(any(ActionEvent.class))).thenReturn(null);
 
         configLoadPanelController.onOpenConfigButtonClick(event);
 

@@ -8,10 +8,7 @@ import java.lang.reflect.Field;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,12 +28,6 @@ class StartDirectoryPathPanelControllerTest {
     private IDirectoryChooserService directoryChooserService;
     @Mock
     private ActionEvent event;
-    @Mock
-    private Node node;
-    @Mock
-    private Scene scene;
-    @Mock
-    private Stage window;
 
     StringProperty property;
 
@@ -68,10 +59,7 @@ class StartDirectoryPathPanelControllerTest {
 
     @Test
     void shouldChangePathInTextFieldWhenUserIsChoiceStartDirectory() {
-        when(event.getSource()).thenReturn(node);
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getWindow()).thenReturn(window);
-        when(directoryChooserService.showDialog(any(Stage.class))).thenReturn(file);
+        when(directoryChooserService.showDialog(any(ActionEvent.class))).thenReturn(file);
 
         startDirectoryPathPanelController.onChoiceStartDirectoryButtonClick(event);
 
@@ -80,10 +68,7 @@ class StartDirectoryPathPanelControllerTest {
 
     @Test
     void shouldNotChangePathInTextFieldWhenUserIsNotChoiceStartDirectory() {
-        when(event.getSource()).thenReturn(node);
-        when(node.getScene()).thenReturn(scene);
-        when(scene.getWindow()).thenReturn(window);
-        when(directoryChooserService.showDialog(any(Stage.class))).thenReturn(null);
+        when(directoryChooserService.showDialog(any(ActionEvent.class))).thenReturn(null);
         String expectedText = "/home/user/test";
         textField.setText(expectedText);
 

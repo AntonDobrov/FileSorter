@@ -3,9 +3,7 @@ package ru.antondobrov.filesorter.controllers;
 import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import ru.antondobrov.filesorter.services.IDirectoryChooserService;
 import ru.antondobrov.filesorter.services.IStartDirectoryConfig;
 
@@ -23,19 +21,13 @@ public class StartDirectoryPathPanelController {
 
     @FXML
     void onChoiceStartDirectoryButtonClick(ActionEvent event) {
-        Stage window = getStageFromEvent(event);
-        File startDirectory = directoryChooserService.showDialog(window);
+        File startDirectory = directoryChooserService.showDialog(event);
 
         if (startDirectory == null) {
             return;
         }
 
         config.getStartDirectoryPathProperty().set(startDirectory.getAbsolutePath());
-    }
-
-    private Stage getStageFromEvent(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        return (Stage) source.getScene().getWindow();
     }
 
     void initialize() {

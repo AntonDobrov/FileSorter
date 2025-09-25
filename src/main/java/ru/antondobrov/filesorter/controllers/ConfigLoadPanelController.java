@@ -3,8 +3,6 @@ package ru.antondobrov.filesorter.controllers;
 import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.stage.Stage;
 import ru.antondobrov.filesorter.services.IConfigLoadService;
 import ru.antondobrov.filesorter.services.IFileChooserService;
 
@@ -20,8 +18,7 @@ public class ConfigLoadPanelController {
 
     @FXML
     public void onSaveConfigButtonClick(ActionEvent event) {
-        Stage window = getStageFromEvent(event);
-        File configFile = fileChooserService.showSaveDialog(window);
+        File configFile = fileChooserService.showSaveDialog(event);
 
         if (configFile == null) {
             return;
@@ -30,15 +27,9 @@ public class ConfigLoadPanelController {
         configLoadService.saveConfig(configFile);
     }
 
-    private Stage getStageFromEvent(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        return (Stage) source.getScene().getWindow();
-    }
-
     @FXML
     public void onOpenConfigButtonClick(ActionEvent event) {
-        Stage window = getStageFromEvent(event);
-        File configFile = fileChooserService.showOpenDialog(window);
+        File configFile = fileChooserService.showOpenDialog(event);
 
         if (configFile == null) {
             return;

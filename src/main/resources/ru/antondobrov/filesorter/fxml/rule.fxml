@@ -12,12 +12,12 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
    xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="ru.antondobrov.filesorter.controllers.RuleViewController">
+   fx:controller="ru.antondobrov.filesorter.controllers.RuleController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="NEVER">
          <children>
             <Label fx:id="destinationPathLabel" text="%destination.path.label" HBox.hgrow="NEVER" />
-            <TextField fx:id="destinationPathTextFIeld" maxWidth="1.7976931348623157E308"
+            <TextField fx:id="destinationPathTextField" maxWidth="1.7976931348623157E308"
                promptText="%destination.path.text.field.placeholder" HBox.hgrow="ALWAYS" />
             <Button fx:id="choiceDestinationPathButton" mnemonicParsing="false"
                onAction="#onChoiceDestinationPathButtonClick" text="%choice.destination.path.button"
@@ -42,7 +42,7 @@
       <TitledPane fx:id="patternsPane" maxHeight="1.7976931348623157E308"
          text="%patterns.list.header">
          <content>
-            <ListView fx:id="patternsList" />
+            <ListView fx:id="patternsList" selectionMode="MULTIPLE" />
          </content>
       </TitledPane>
    </children>

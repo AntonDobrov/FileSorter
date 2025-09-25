@@ -1,8 +1,8 @@
 package ru.antondobrov.filesorter.services;
 
 import java.io.File;
-import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 public interface IDirectoryChooserService {
-    public File showDialog(Stage ownerWindow);
+    public File showDialog(ActionEvent event);
 }
