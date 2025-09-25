@@ -12,22 +12,22 @@ public enum ActionPolicy {
     /**
      * Always execute the action.
      */
-    YES("actionpolicy.yes"),
+    YES("action.policy.yes"),
 
     /**
      * Never execute the action.
      */
-    NO("actionpolicy.no"),
+    NO("action.policy.no"),
 
     /**
      * Always ask the user before executing the action.
      */
-    ASK("actionpolicy.ask"),
+    ASK("action.policy.ask"),
 
     /**
      * Indicates that no policy has been selected or an error has occurred.
      */
-    EMPTY("actionpolicy.empty");
+    EMPTY("action.policy.empty");
 
     /**
      * The key for looking up the localized description in a {@link ResourceBundle}.
@@ -54,12 +54,14 @@ public enum ActionPolicy {
      * Returns a localized, human-readable name for this policy.
      * <p>
      * 
-     * @param localizer The {@link ILocalizer} service to use for the translation. Must not be
-     *        {@code null}.
+     * @param localizer The {@link ILocalizer} service to use for the translation.
      * @return The localized policy name, or the key itself if a translation is not found.
      */
     public String getDisplayName(ILocalizer localizer) {
-        return localizer.get(description);
+        if (localizer == null) {
+            return getDescription();
+        }
+        return localizer.get(getDescription());
     }
 
     @Override

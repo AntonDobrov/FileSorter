@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SortingRuleViewTest {
+class SortingRuleViewTest {
     private SortingRule rule;
     private SortingRuleView ruleView;
 

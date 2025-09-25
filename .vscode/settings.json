@@ -45,4 +45,5 @@
     "files.encoding": "utf8",
     "files.eol": "\n",
     "maven.view": "hierarchical",
+    "editor.rulers": [79, 120]
 }

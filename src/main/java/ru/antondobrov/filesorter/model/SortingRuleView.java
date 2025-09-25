@@ -54,6 +54,6 @@ public class SortingRuleView {
 
     @Override
     public String toString() {
-        return "SortingRuleView{" + getRule().toString().replaceAll("\n", "\n\t") + "\n}";
+        return "SortingRuleView{" + getRule().toString().replace("\n", "\n\t") + "\n}";
     }
 }

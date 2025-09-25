@@ -16,26 +16,25 @@ public class LocalizerTest {
 
     private Localizer localizer;
     private String key;
-    private String localizedString;
 
     @BeforeEach
     void setUp() {
-        key = "a.a.a";
-        localizedString = "aaa";
+        key = "t.e.s.t";
     }
 
     @Test
-    void shouldReturnLocalizedStringFromGetWhenKeyIsValid() {
-
+    void shouldReturnLocalizedStringWhenKeyIsValid() {
         when(bundle.containsKey(key)).thenReturn(true);
+        String localizedString = "test";
         when(bundle.getString(key)).thenReturn(localizedString);
+
         localizer = new Localizer(bundle);
 
         assertThat(localizer.get(key)).isEqualTo(localizedString);
     }
 
     @Test
-    void shouldReturnKeyStringFromGetWhenKeyIsInvalid() {
+    void shouldReturnKeyStringWhenKeyIsInvalid() {
         when(bundle.containsKey(key)).thenReturn(false);
         localizer = new Localizer(bundle);
 
@@ -43,20 +42,21 @@ public class LocalizerTest {
     }
 
     @Test
-    void shouldReturnKeyStringFromGetWhenBundleIsNull() {
+    void shouldReturnKeyStringWhenBundleIsNull() {
         localizer = new Localizer(null);
 
         assertThat(localizer.get(key)).isEqualTo(key);
     }
 
-
     @Test
     void shouldSetAndGetBundle() {
-        localizer = new Localizer(null);
+        when(bundle.containsKey(key)).thenReturn(true);
 
+        localizer = new Localizer(null);
+        assertThat(localizer.getBundle()).isNull();
         localizer.setBundle(bundle);
 
-        assertThat(localizer.getBundle()).isEqualTo(bundle);
+        assertThat(localizer.getBundle().containsKey(key)).isEqualTo(bundle.containsKey(key));
     }
 
     @Test
@@ -64,6 +64,7 @@ public class LocalizerTest {
         localizer = new Localizer(null);
         assertThat(localizer.get(key)).isEqualTo(key);
 
+        String localizedString = "test";
         when(bundle.containsKey(key)).thenReturn(true);
         when(bundle.getString(key)).thenReturn(localizedString);
         localizer.setBundle(bundle);

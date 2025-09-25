@@ -167,6 +167,6 @@ public class SorterConfig {
                 + "\nDelete on success: " + getDeleteOnSuccessPolicy().toString() + ";"
                 + "\nDuplicate Files: " + getDuplicateFilesPolicy().toString() + ";"
                 + getSortingRules().toString() + ";";
-        return "SorterConfig{" + values.replaceAll("\n", "\n\t") + "\n" + "}";
+        return "SorterConfig{" + values.replace("\n", "\n\t") + "\n" + "}";
     }
 }

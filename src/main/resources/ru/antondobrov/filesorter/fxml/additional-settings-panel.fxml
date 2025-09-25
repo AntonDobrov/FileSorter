@@ -27,7 +27,7 @@
             <Label fx:id="traverseSubdirectoriesLabel" text="%traverse.subdirectories.label" />
             <Label fx:id="deleteOnSuccessLabel" text="%delete.on.success.label"
                GridPane.rowIndex="1" />
-            <Label fx:id="copyInDestinationExistLabel" text="%copy.in.destinaton.exist.label"
+            <Label fx:id="copyInDestinationExistLabel" text="%copy.in.destination.exist.label"
                GridPane.rowIndex="2" />
             <ChoiceBox fx:id="traverseSubdirectoriesChoiceBox" accessibleRole="CHECK_BOX"
                GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />

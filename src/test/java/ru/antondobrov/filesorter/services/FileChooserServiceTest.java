@@ -5,6 +5,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.io.File;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +19,7 @@ import ru.antondobrov.filesorter.utils.FileChooserFactory;
 import ru.antondobrov.filesorter.utils.ILocalizer;
 
 @ExtendWith(MockitoExtension.class)
-public class FileChooserServiceTest {
+class FileChooserServiceTest {
 
     @Mock
     private ILocalizer localizer;
@@ -49,7 +51,6 @@ public class FileChooserServiceTest {
 
         fileChooserService.showOpenDialog(null);
 
-        verify(localizer).get(titleKey);
         verify(fileChooser).setTitle(expectedTitle);
     }
 
@@ -67,21 +68,39 @@ public class FileChooserServiceTest {
 
     @Test
     void shouldSetCorrectTitleForSaveDialog() {
+        String nameKey = "config.initial.name";
+        when(localizer.get(nameKey)).thenReturn("test");
+
+        String descriptionKey = "json.files.extension.description";
+        when(localizer.get(descriptionKey)).thenReturn("test");
+
         String titleKey = "save.config.file.dialog.title";
         String expectedTitle = "Save configuration";
         when(localizer.get(titleKey)).thenReturn(expectedTitle);
 
+        ObservableList<FileChooser.ExtensionFilter> actualFilters =
+                FXCollections.observableArrayList();
+        when(fileChooser.getExtensionFilters()).thenReturn(actualFilters);
+
         fileChooserService.showSaveDialog(null);
 
-        verify(localizer).get(titleKey);
         verify(fileChooser).setTitle(expectedTitle);
     }
 
     @Test
     void shouldSetCorrectInitialFileNameForSaveDialog() {
+        String titleKey = "save.config.file.dialog.title";
+        when(localizer.get(titleKey)).thenReturn("test");
+        String descriptionKey = "json.files.extension.description";
+        when(localizer.get(descriptionKey)).thenReturn("test");
+
         String nameKey = "config.initial.name";
         String expectedInitialName = "config.json";
         when(localizer.get(nameKey)).thenReturn(expectedInitialName);
+
+        ObservableList<FileChooser.ExtensionFilter> actualFilters =
+                FXCollections.observableArrayList();
+        when(fileChooser.getExtensionFilters()).thenReturn(actualFilters);
 
         fileChooserService.showSaveDialog(null);
 
@@ -91,25 +110,43 @@ public class FileChooserServiceTest {
 
     @Test
     void shouldAddCorrectJsonExtensionFilterForSaveDialog() {
+        String titleKey = "save.config.file.dialog.title";
+        when(localizer.get(titleKey)).thenReturn("test");
+        String nameKey = "config.initial.name";
+        when(localizer.get(nameKey)).thenReturn("test");
         String descriptionKey = "json.files.extension.description";
         String expectedDescription = "JSON File (*.json)";
         String expectedExtension = "*.json";
         when(localizer.get(descriptionKey)).thenReturn(expectedDescription);
 
+        ObservableList<FileChooser.ExtensionFilter> actualFilters =
+                FXCollections.observableArrayList();
+        when(fileChooser.getExtensionFilters()).thenReturn(actualFilters);
+
         fileChooserService.showSaveDialog(null);
 
         verify(localizer).get(descriptionKey);
-        verify(fileChooser.getExtensionFilters()).add(extensionFilterCaptor.capture());
-        FileChooser.ExtensionFilter actualFilter = extensionFilterCaptor.getValue();
 
-        assertThat(actualFilter.getDescription()).isEqualTo(expectedDescription);
-        List<String> extensions = actualFilter.getExtensions();
-        assertThat(extensions.size()).isEqualTo(1);
-        assertThat(extensions.get(0)).isEqualTo(expectedExtension);
+        FileChooser.ExtensionFilter addedFilter = actualFilters.get(0);
+        assertThat(addedFilter.getDescription()).isEqualTo(expectedDescription);
+
+        List<String> extensions = addedFilter.getExtensions();
+        assertThat(extensions).hasSize(1).containsExactly(expectedExtension);
     }
 
     @Test
     void shouldSetUserHomeAsInitialDirectoryForSaveDialog() {
+        String titleKey = "save.config.file.dialog.title";
+        when(localizer.get(titleKey)).thenReturn("test");
+        String nameKey = "config.initial.name";
+        when(localizer.get(nameKey)).thenReturn("test");
+        String descriptionKey = "json.files.extension.description";
+        when(localizer.get(descriptionKey)).thenReturn("test");
+
+        ObservableList<FileChooser.ExtensionFilter> actualFilters =
+                FXCollections.observableArrayList();
+        when(fileChooser.getExtensionFilters()).thenReturn(actualFilters);
+
         String expectedUserHome = System.getProperty("user.home");
 
         fileChooserService.showSaveDialog(null);

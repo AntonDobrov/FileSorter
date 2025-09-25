@@ -44,7 +44,6 @@ public class FileChooserService implements IFileChooserService {
         return fileChooser.showSaveDialog(ownerWindow);
     }
 
-
     private FileChooser createFileChooser(String title) {
         FileChooser fileChooser = factory.create();
         fileChooser.setTitle(title);

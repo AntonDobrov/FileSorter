@@ -7,17 +7,17 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ru.antondobrov.filesorter.services.IDirectoryChooserService;
-import ru.antondobrov.filesorter.services.IStartDirectoryHandler;
+import ru.antondobrov.filesorter.services.IStartDirectoryConfig;
 
 public class StartDirectoryPathPanelController {
     @FXML
     private TextField startDirectoryPathTextField;
-    private final IStartDirectoryHandler startDirectoryHandler;
+    private final IStartDirectoryConfig config;
     private final IDirectoryChooserService directoryChooserService;
 
-    public StartDirectoryPathPanelController(IStartDirectoryHandler startDirectoryHandler,
+    public StartDirectoryPathPanelController(IStartDirectoryConfig config,
             IDirectoryChooserService directoryChooserService) {
-        this.startDirectoryHandler = startDirectoryHandler;
+        this.config = config;
         this.directoryChooserService = directoryChooserService;
     }
 
@@ -29,24 +29,17 @@ public class StartDirectoryPathPanelController {
         if (startDirectory == null) {
             return;
         }
-        // calls startDirectoryHandler and change visible path
-        startDirectoryPathTextField.setText(startDirectory.getAbsolutePath());
+
+        config.getStartDirectoryPathProperty().set(startDirectory.getAbsolutePath());
     }
 
     private Stage getStageFromEvent(ActionEvent event) {
         Node source = (Node) event.getSource();
-        Stage window = (Stage) source.getScene().getWindow();
-        return window;
+        return (Stage) source.getScene().getWindow();
     }
 
     void initialize() {
-        startDirectoryPathTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && !newValue.trim().isEmpty()) {
-                File newStartDirectory = new File(newValue.trim());
-                startDirectoryHandler.handleStartDirectory(newStartDirectory);
-            } else {
-                startDirectoryHandler.handleStartDirectory(null);
-            }
-        });
+        startDirectoryPathTextField.textProperty()
+                .bindBidirectional(config.getStartDirectoryPathProperty());
     }
 }

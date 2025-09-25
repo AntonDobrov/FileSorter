@@ -1,12 +1,11 @@
 package ru.antondobrov.filesorter.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SortingRuleTest {
+class SortingRuleTest {
     private SortingRule rule;
 
     @BeforeEach
@@ -16,7 +15,7 @@ public class SortingRuleTest {
 
     @Test
     void shouldSetAndGetDestinationPath() {
-        String destinationPath = anyString();
+        String destinationPath = "test";
 
         rule.setDestinationPath(destinationPath);
 
@@ -32,10 +31,10 @@ public class SortingRuleTest {
     @Test
     void shouldAllowAddingAndRetrievingPatterns() {
         ObservableList<String> patterns = rule.getPatterns();
-        String pattern = anyString();
+        String pattern = "test";
         patterns.add(pattern);
 
-        assertThat(rule.getPatterns().size()).isEqualTo(1);
+        assertThat(rule.getPatterns()).hasSize(1);
         assertThat(rule.getPatterns().get(0)).isEqualTo(pattern);
     }
 }

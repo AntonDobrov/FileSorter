@@ -16,7 +16,7 @@ import ru.antondobrov.filesorter.utils.DirectoryChooserFactory;
 import ru.antondobrov.filesorter.utils.ILocalizer;
 
 @ExtendWith(MockitoExtension.class)
-public class DirectoryChooserServiceTest {
+class DirectoryChooserServiceTest {
     @Mock
     private ILocalizer localizer;
 
@@ -44,7 +44,6 @@ public class DirectoryChooserServiceTest {
 
         directoryChooserService.showDialog(null);
 
-        verify(localizer).get(titleKey);
         verify(directoryChooser).setTitle(expectedTitle);
     }
 

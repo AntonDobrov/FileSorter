@@ -18,7 +18,7 @@ import ru.antondobrov.filesorter.services.IConfigLoadService;
 import ru.antondobrov.filesorter.services.IFileChooserService;
 
 @ExtendWith(MockitoExtension.class)
-public class ConfigLoadPanelControllerTest {
+class ConfigLoadPanelControllerTest {
 
     @Mock
     private IConfigLoadService configLoadService;

@@ -2,11 +2,11 @@ package ru.antondobrov.filesorter.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.io.File;
 import java.lang.reflect.Field;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -15,20 +15,18 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
 import ru.antondobrov.filesorter.services.IDirectoryChooserService;
-import ru.antondobrov.filesorter.services.IStartDirectoryHandler;
+import ru.antondobrov.filesorter.services.IStartDirectoryConfig;
 
 @ExtendWith(ApplicationExtension.class)
 @ExtendWith(MockitoExtension.class)
-public class StartDirectoryPathPanelControllerTest {
+class StartDirectoryPathPanelControllerTest {
 
     @Mock
-    private IStartDirectoryHandler startDirectoryHandler;
+    private IStartDirectoryConfig config;
     @Mock
     private IDirectoryChooserService directoryChooserService;
     @Mock
@@ -40,26 +38,28 @@ public class StartDirectoryPathPanelControllerTest {
     @Mock
     private Stage window;
 
+    StringProperty property;
+
     File file;
 
-    @Captor
-    private ArgumentCaptor<File> startDirectoryCaptor;
+    TextField textField;
 
-    private TextField textField;
-
-    private StartDirectoryPathPanelController startDirectoryPathPanelController;
+    StartDirectoryPathPanelController startDirectoryPathPanelController;
 
     @BeforeEach
     void setUp() throws Exception {
-        startDirectoryPathPanelController = new StartDirectoryPathPanelController(
-                startDirectoryHandler, directoryChooserService);
+        startDirectoryPathPanelController =
+                new StartDirectoryPathPanelController(config, directoryChooserService);
+        property = new SimpleStringProperty();
+
+        when(config.getStartDirectoryPathProperty()).thenReturn(property);
 
         textField = new TextField();
 
-        Field textField_field = StartDirectoryPathPanelController.class
+        Field textFieldFromController = StartDirectoryPathPanelController.class
                 .getDeclaredField("startDirectoryPathTextField");
-        textField_field.setAccessible(true);
-        textField_field.set(startDirectoryPathPanelController, textField);
+        textFieldFromController.setAccessible(true);
+        textFieldFromController.set(startDirectoryPathPanelController, textField);
 
         startDirectoryPathPanelController.initialize();
 
@@ -84,39 +84,27 @@ public class StartDirectoryPathPanelControllerTest {
         when(node.getScene()).thenReturn(scene);
         when(scene.getWindow()).thenReturn(window);
         when(directoryChooserService.showDialog(any(Stage.class))).thenReturn(null);
+        String expectedText = "/home/user/test";
+        textField.setText(expectedText);
 
         startDirectoryPathPanelController.onChoiceStartDirectoryButtonClick(event);
 
-        assertThat(textField.getText()).isEmpty();
+        assertThat(textField.getText()).isEqualTo(expectedText);
     }
 
     @Test
-    void shouldCallHandlerWithNewFileWhenTextIsSet() {
-        String path1 = "/home/user/test1";
-        String path2 = "/home/user/test";
+    void shouldChangePathInConfigWhenNewPathIsSet() {
+        String path = "/home/user/test";
 
-        textField.setText(path1);
+        textField.setText(path);
 
-        textField.setText(path2);
-
-        verify(startDirectoryHandler, times(2))
-                .handleStartDirectory(startDirectoryCaptor.capture());
-        File actualDirectory = startDirectoryCaptor.getValue();
-
-        assertThat(actualDirectory.getPath()).isEqualTo(path2);
+        assertThat(config.getStartDirectoryPathProperty().get()).isEqualTo(path);
     }
 
     @Test
-    void shouldCallHandlerWithNullWhenTextIsCleared() {
-        String path1 = "/home/user/test1";
-        String path2 = "";
-
-        textField.setText(path1);
-
-        textField.setText(path2);
-
-        verify(startDirectoryHandler).handleStartDirectory(null);
-
-
+    void shouldChangePathInTextFieldWhenPathInConfigIsChange() {
+        String path = "/home/user/test";
+        config.getStartDirectoryPathProperty().set(path);
+        assertThat(textField.getText()).isEqualTo(path);
     }
 }

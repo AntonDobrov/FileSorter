@@ -32,8 +32,7 @@ public class ConfigLoadPanelController {
 
     private Stage getStageFromEvent(ActionEvent event) {
         Node source = (Node) event.getSource();
-        Stage window = (Stage) source.getScene().getWindow();
-        return window;
+        return (Stage) source.getScene().getWindow();
     }
 
     @FXML
@@ -49,5 +48,5 @@ public class ConfigLoadPanelController {
     }
 
     @FXML
-    void initialize() {}
+    void initialize() { /* Need for javafx */ }
 }

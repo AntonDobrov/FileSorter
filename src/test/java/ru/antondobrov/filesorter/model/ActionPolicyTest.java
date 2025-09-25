@@ -10,11 +10,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.antondobrov.filesorter.utils.ILocalizer;
 
 @ExtendWith(MockitoExtension.class)
-public class ActionPolicyTest {
+class ActionPolicyTest {
 
     @ParameterizedTest
-    @CsvSource({"YES, actionpolicy.yes", "NO, actionpolicy.no", "ASK, actionpolicy.ask",
-            "EMPTY, actionpolicy.empty"})
+    @CsvSource({"YES, action.policy.yes", "NO, action.policy.no", "ASK, action.policy.ask",
+            "EMPTY, action.policy.empty"})
     void shouldReturnDescription(ActionPolicy actualPolicy, String expectedPolicy) {
 
         assertThat(actualPolicy.getDescription()).isEqualTo(expectedPolicy);
