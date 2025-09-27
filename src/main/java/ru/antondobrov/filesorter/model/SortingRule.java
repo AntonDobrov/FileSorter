@@ -1,27 +1,32 @@
 package ru.antondobrov.filesorter.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents a rule for sorting files.
+ * A concrete implementation of {@link IRuleConfig} that defines a sorting rule based on file name
+ * patterns.
  * <p>
- * A rule consists of a destination path ({@code destinationPath}) and a list of filename patterns
- * ({@code patterns}). Files that match one of the patterns should be moved to the specified
- * destination folder.
- * <p>
- * This class is designed using JavaFX Properties, making it easy to bind its fields to UI
- * components.
+ * This rule matches files against a list of patterns (e.g., "*.jpg", "document-*.pdf") and
+ * specifies a destination directory where matching files should be moved. The class uses JavaFX
+ * properties to enable easy binding with UI components and is configured with Jackson annotations
+ * for seamless serialization to and from JSON format.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SortingRule implements IRuleConfig {
     private final StringProperty destinationPath;
     private final ObservableList<String> patterns;
 
     /**
-     * Constructs a new, empty sorting rule. The destination path is initialized as an empty string,
-     * and the patterns list is empty.
+     * Initializes a new {@code SortingRule} with default values. The destination path is set to an
+     * empty string, and the list of patterns is empty.
      */
     public SortingRule() {
         this.destinationPath = new SimpleStringProperty("");
@@ -29,64 +34,64 @@ public class SortingRule implements IRuleConfig {
     }
 
     /**
-     * Constructs a new sorting rule with a specified destination path.
+     * Gets the raw value of the destination path. This method is used by Jackson for serialization.
      *
-     * @param destinationPath The initial destination path.
+     * @return The destination directory path as a String.
      */
-    public SortingRule(String destinationPath) {
-        this.destinationPath = new SimpleStringProperty(destinationPath);
-        this.patterns = FXCollections.observableArrayList();
-    }
-
-    /**
-     * Constructs a new sorting rule with a specified destination path and list of patterns.
-     *
-     * @param destinationPath The destination path.
-     * @param patterns The list of filename patterns.
-     */
-    public SortingRule(String destinationPath, ObservableList<String> patterns) {
-        this.destinationPath = new SimpleStringProperty(destinationPath);
-        this.patterns = patterns;
-    }
-
-    /**
-     * Gets the destination path.
-     *
-     * @return The current destination path.
-     */
+    @JsonProperty("destinationPath")
     public String getDestinationPath() {
         return destinationPath.get();
     }
 
     /**
-     * Sets the destination path.
+     * Sets the value of the destination path. This method is used by Jackson for deserialization.
      *
-     * @param destinationPath The new destination path.
+     * @param destinationPath The new destination directory path.
      */
     public void setDestinationPath(String destinationPath) {
         this.destinationPath.set(destinationPath);
     }
 
     /**
-     * Returns the destination path property.
-     * <p>
-     * This is useful for binding to JavaFX UI components.
+     * Provides the JavaFX {@link StringProperty} for the destination path. This is intended for UI
+     * binding and is ignored by Jackson during serialization.
      *
-     * @return The {@link StringProperty} for the destination path.
+     * @return The property for the destination path.
      */
+    @JsonIgnore
     @Override
     public StringProperty getDestinationPathProperty() {
         return destinationPath;
     }
 
     /**
-     * Returns the observable list of filename patterns.
-     * <p>
-     * Since the list is observable, any modifications to it will be automatically reflected in
-     * bound UI components.
+     * Returns the list of patterns as a standard {@link java.util.List}. This method is used by
+     * Jackson for serialization.
      *
-     * @return The {@link ObservableList} of patterns.
+     * @return A list of file patterns.
      */
+    @JsonProperty("patterns")
+    public List<String> getPatternsList() {
+        return new ArrayList<>(patterns);
+    }
+
+    /**
+     * Sets the patterns from a standard {@link java.util.List}. This method is used by Jackson for
+     * deserialization, populating the internal {@link ObservableList}.
+     *
+     * @param patterns A list of file patterns to set.
+     */
+    public void setPatternsList(List<String> patterns) {
+        this.patterns.setAll(patterns);
+    }
+
+    /**
+     * Provides the JavaFX {@link ObservableList} of patterns. This is intended for UI binding and
+     * is ignored by Jackson during serialization.
+     *
+     * @return The observable list of patterns.
+     */
+    @JsonIgnore
     @Override
     public ObservableList<String> getPatterns() {
         return patterns;

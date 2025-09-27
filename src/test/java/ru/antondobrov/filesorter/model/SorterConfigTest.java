@@ -80,7 +80,8 @@ class SorterConfigTest {
     @Test
     void shouldAllowAddingAndRetrievingSortingRules() {
         ObservableList<IRuleConfig> rules = config.getRulesList();
-        IRuleConfig rule = new SortingRule("/home/user/test");
+        IRuleConfig rule = new SortingRule();
+        rule.getDestinationPathProperty().set("/home/user/test");
 
         rules.add(rule);
 
