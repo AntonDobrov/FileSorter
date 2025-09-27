@@ -6,11 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.StringConverter;
 import ru.antondobrov.filesorter.model.ActionPolicy;
-import ru.antondobrov.filesorter.services.IAdditionalSettingsConfig;
 
 public class AdditionalSettingsPanelController {
-    IAdditionalSettingsConfig config;
-    StringConverter<ActionPolicy> converter;
+    private final IAdditionalSettingsConfig config;
+    private final StringConverter<ActionPolicy> converter;
 
     public AdditionalSettingsPanelController(IAdditionalSettingsConfig config,
             StringConverter<ActionPolicy> converter) {
@@ -25,7 +24,7 @@ public class AdditionalSettingsPanelController {
     @FXML
     private ChoiceBox<ActionPolicy> copyInDestinationExistChoiceBox;
 
-    void configureBox(ChoiceBox<ActionPolicy> box, List<ActionPolicy> boxItems,
+    private void configureBox(ChoiceBox<ActionPolicy> box, List<ActionPolicy> boxItems,
             ObjectProperty<ActionPolicy> property) {
         box.setConverter(converter);
         box.getItems().setAll(boxItems);

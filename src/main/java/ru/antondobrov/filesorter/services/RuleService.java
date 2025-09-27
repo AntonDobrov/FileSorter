@@ -4,18 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javafx.collections.ObservableList;
+import ru.antondobrov.filesorter.controllers.IRuleService;
 
 public class RuleService implements IRuleService {
 
+    private final PatternFactory factory;
+
+    public RuleService(PatternFactory factory) {
+        this.factory = factory;
+    }
+
     @Override
-    public void addPatternsToPatternsList(ObservableList<String> patternsList,
-            Integer newPatternsCount) {
-        if (patternsList == null || newPatternsCount == null) {
+    public void addPatternsToPatternsList(ObservableList<String> patternsList) {
+        if (patternsList == null) {
             return;
         }
-        for (int i = newPatternsCount.intValue(); i > 0; i--) {
-            patternsList.add("");
-        }
+        patternsList.add(factory.create());
+
     }
 
     @Override

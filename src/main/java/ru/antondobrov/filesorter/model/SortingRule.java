@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
  * This class is designed using JavaFX Properties, making it easy to bind its fields to UI
  * components.
  */
-public class SortingRule {
+public class SortingRule implements IRuleConfig {
     private final StringProperty destinationPath;
     private final ObservableList<String> patterns;
 
@@ -74,6 +74,7 @@ public class SortingRule {
      *
      * @return The {@link StringProperty} for the destination path.
      */
+    @Override
     public StringProperty getDestinationPathProperty() {
         return destinationPath;
     }
@@ -86,6 +87,7 @@ public class SortingRule {
      *
      * @return The {@link ObservableList} of patterns.
      */
+    @Override
     public ObservableList<String> getPatterns() {
         return patterns;
     }

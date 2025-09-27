@@ -79,12 +79,12 @@ class SorterConfigTest {
 
     @Test
     void shouldAllowAddingAndRetrievingSortingRules() {
-        ObservableList<SortingRuleView> rules = config.getSortingRules();
-        SortingRuleView ruleView = new SortingRuleView(new SortingRule("/home/user/test"));
+        ObservableList<SortingRule> rules = config.getSortingRules();
+        SortingRule rule = new SortingRule("/home/user/test");
 
-        rules.add(ruleView);
+        rules.add(rule);
 
         assertThat(config.getSortingRules()).hasSize(1);
-        assertThat(config.getSortingRules().get(0)).isEqualTo(ruleView);
+        assertThat(config.getSortingRules().get(0)).isEqualTo(rule);
     }
 }

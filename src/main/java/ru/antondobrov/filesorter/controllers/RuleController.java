@@ -5,15 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
-import ru.antondobrov.filesorter.services.IDirectoryChooserService;
-import ru.antondobrov.filesorter.services.IRuleConfig;
-import ru.antondobrov.filesorter.services.IRuleService;
+import ru.antondobrov.filesorter.model.IRuleConfig;
 
 public class RuleController {
-    IRuleConfig config;
-    IRuleService ruleService;
+    private final IRuleConfig config;
+    private final IRuleService ruleService;
     @FXML
     TextField destinationPathTextField;
     @FXML
@@ -29,37 +28,36 @@ public class RuleController {
     }
 
     @FXML
-    void onChoiceDestinationPathButtonClick(ActionEvent event) {
+    public void onChoiceDestinationPathButtonClick(ActionEvent event) {
         File destinationDirectory = directoryChooserService.showDialog(event);
 
         if (destinationDirectory == null) {
             return;
         }
 
-        config.getDestinationDirectoryPathProperty().set(destinationDirectory.getAbsolutePath());
+        config.getDestinationPathProperty().set(destinationDirectory.getAbsolutePath());
     }
 
     @FXML
-    void onDeletePatternButtonClick(ActionEvent event) {
+    public void onDeletePatternButtonClick(ActionEvent event) {
         ObservableList<Integer> indices = patternsListView.getSelectionModel().getSelectedIndices();
         if (indices.isEmpty()) {
             return;
         }
-        ruleService.deletePatternsFromPatternsList(config.getPatternList(), indices);
+        ruleService.deletePatternsFromPatternsList(config.getPatterns(), indices);
     }
 
     @FXML
-    void onAddPatternButtonClick(ActionEvent event) {
-        Integer defaultNewPatterns = 1;
-        ruleService.addPatternsToPatternsList(config.getPatternList(), defaultNewPatterns);
+    public void onAddPatternButtonClick(ActionEvent event) {
+        ruleService.addPatternsToPatternsList(config.getPatterns());
     }
 
     @FXML
     void initialize() {
-        patternsListView.setEditable(true);
+        patternsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         patternsListView.setCellFactory(TextFieldListCell.forListView());
         destinationPathTextField.textProperty()
-                .bindBidirectional(config.getDestinationDirectoryPathProperty());
-        patternsListView.setItems(config.getPatternList());
+                .bindBidirectional(config.getDestinationPathProperty());
+        patternsListView.setItems(config.getPatterns());
     }
 }

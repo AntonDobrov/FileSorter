@@ -19,9 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
-import ru.antondobrov.filesorter.services.IDirectoryChooserService;
-import ru.antondobrov.filesorter.services.IRuleConfig;
-import ru.antondobrov.filesorter.services.IRuleService;
+import ru.antondobrov.filesorter.model.IRuleConfig;
 
 @ExtendWith(ApplicationExtension.class)
 @ExtendWith(MockitoExtension.class)
@@ -51,8 +49,8 @@ class RuleControllerTest {
         pathProperty.set(testPath);
         patternsList = FXCollections.observableArrayList();
         patternsList.addAll(pattern1, pattern2);
-        when(config.getDestinationDirectoryPathProperty()).thenReturn(pathProperty);
-        when(config.getPatternList()).thenReturn(patternsList);
+        when(config.getDestinationPathProperty()).thenReturn(pathProperty);
+        when(config.getPatterns()).thenReturn(patternsList);
 
         controller = new RuleController(config, ruleService, directoryChooserService);
 
@@ -108,7 +106,7 @@ class RuleControllerTest {
     void shouldAddOnePatternToPatternsListWhenAddButtonClick() {
         controller.onAddPatternButtonClick(null);
 
-        verify(ruleService).addPatternsToPatternsList(patternsList, 1);
+        verify(ruleService).addPatternsToPatternsList(patternsList);
     }
 
     @Test

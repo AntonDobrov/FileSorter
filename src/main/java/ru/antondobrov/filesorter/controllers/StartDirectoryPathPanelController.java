@@ -4,8 +4,6 @@ import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import ru.antondobrov.filesorter.services.IDirectoryChooserService;
-import ru.antondobrov.filesorter.services.IStartDirectoryConfig;
 
 public class StartDirectoryPathPanelController {
     @FXML
@@ -20,7 +18,7 @@ public class StartDirectoryPathPanelController {
     }
 
     @FXML
-    void onChoiceStartDirectoryButtonClick(ActionEvent event) {
+    public void onChoiceStartDirectoryButtonClick(ActionEvent event) {
         File startDirectory = directoryChooserService.showDialog(event);
 
         if (startDirectory == null) {

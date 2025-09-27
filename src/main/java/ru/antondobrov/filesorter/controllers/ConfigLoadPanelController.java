@@ -3,8 +3,6 @@ package ru.antondobrov.filesorter.controllers;
 import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import ru.antondobrov.filesorter.services.IConfigLoadService;
-import ru.antondobrov.filesorter.services.IFileChooserService;
 
 public class ConfigLoadPanelController {
     private final IConfigLoadService configLoadService;

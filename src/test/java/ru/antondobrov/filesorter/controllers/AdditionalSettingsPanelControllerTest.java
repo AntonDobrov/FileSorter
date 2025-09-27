@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
 import ru.antondobrov.filesorter.model.ActionPolicy;
-import ru.antondobrov.filesorter.services.IAdditionalSettingsConfig;
 
 @ExtendWith(ApplicationExtension.class)
 @ExtendWith(MockitoExtension.class)

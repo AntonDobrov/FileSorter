@@ -3,12 +3,10 @@ package ru.antondobrov.filesorter.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
-import ru.antondobrov.filesorter.services.ISorterConfig;
-import ru.antondobrov.filesorter.services.ISorterService;
 
 public class SortingPanelController {
-    ISorterService sorterService;
-    ISorterConfig config;
+    private final ISorterService sorterService;
+    private final ISorterConfig config;
 
     public SortingPanelController(ISorterService sorterService, ISorterConfig config) {
         this.sorterService = sorterService;
@@ -19,7 +17,7 @@ public class SortingPanelController {
     ProgressBar sortingProgressBar;
 
     @FXML
-    void onStartSortingButtonClick(ActionEvent event) {
+    public void onStartSortingButtonClick(ActionEvent event) {
         sorterService.startSorting();
     }
 

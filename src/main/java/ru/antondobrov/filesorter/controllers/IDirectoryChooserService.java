@@ -1,4 +1,4 @@
-package ru.antondobrov.filesorter.services;
+package ru.antondobrov.filesorter.controllers;
 
 import java.io.File;
 import javafx.event.ActionEvent;

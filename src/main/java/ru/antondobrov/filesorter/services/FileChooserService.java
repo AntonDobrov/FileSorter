@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ru.antondobrov.filesorter.controllers.IFileChooserService;
 import ru.antondobrov.filesorter.utils.FileChooserFactory;
 import ru.antondobrov.filesorter.utils.ILocalizer;
 
