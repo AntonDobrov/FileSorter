@@ -19,7 +19,7 @@ public class SorterConfig {
     private final ObjectProperty<ActionPolicy> traverseSubdirectories;
     private final ObjectProperty<ActionPolicy> deleteOnSuccessPolicy;
     private final ObjectProperty<ActionPolicy> duplicateFilesPolicy;
-    private final ObservableList<SortingRuleView> sortingRules;
+    private final ObservableList<SortingRule> sortingRules;
 
     /**
      * Constructs a configuration instance with default values.
@@ -156,7 +156,7 @@ public class SorterConfig {
      *
      * @return The observable list of sorting rule views.
      */
-    public ObservableList<SortingRuleView> getSortingRules() {
+    public ObservableList<SortingRule> getSortingRules() {
         return sortingRules;
     }
 
@@ -167,6 +167,6 @@ public class SorterConfig {
                 + "\nDelete on success: " + getDeleteOnSuccessPolicy().toString() + ";"
                 + "\nDuplicate Files: " + getDuplicateFilesPolicy().toString() + ";"
                 + getSortingRules().toString() + ";";
-        return "SorterConfig{" + values.replaceAll("\n", "\n\t") + "\n" + "}";
+        return "SorterConfig{" + values.replace("\n", "\n\t") + "\n" + "}";
     }
 }

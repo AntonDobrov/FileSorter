@@ -16,10 +16,10 @@ class SorterConfigTest {
 
     @Test
     void shouldInitializeWithDefaultValues() {
-        assertThat(config.getStartDirectoryPath()).isEqualTo("");
-        assertThat(ActionPolicy.ASK).isEqualTo(config.getTraverseSubdirectories());
-        assertThat(ActionPolicy.ASK).isEqualTo(config.getDeleteOnSuccessPolicy());
-        assertThat(ActionPolicy.ASK).isEqualTo(config.getDuplicateFilesPolicy());
+        assertThat(config.getStartDirectoryPath()).isEmpty();
+        assertThat(config.getTraverseSubdirectories()).isEqualTo(ActionPolicy.ASK);
+        assertThat(config.getDeleteOnSuccessPolicy()).isEqualTo(ActionPolicy.ASK);
+        assertThat(config.getDuplicateFilesPolicy()).isEqualTo(ActionPolicy.ASK);
         assertThat(config.getSortingRules()).isNotNull();
         assertThat(config.getSortingRules()).isEmpty();
     }
@@ -79,12 +79,12 @@ class SorterConfigTest {
 
     @Test
     void shouldAllowAddingAndRetrievingSortingRules() {
-        ObservableList<SortingRuleView> rules = config.getSortingRules();
-        SortingRuleView ruleView = new SortingRuleView(new SortingRule("/home/user/test"));
+        ObservableList<SortingRule> rules = config.getSortingRules();
+        SortingRule rule = new SortingRule("/home/user/test");
 
-        rules.add(ruleView);
+        rules.add(rule);
 
-        assertThat(config.getSortingRules().size()).isEqualTo(1);
-        assertThat(config.getSortingRules().get(0)).isEqualTo(ruleView);
+        assertThat(config.getSortingRules()).hasSize(1);
+        assertThat(config.getSortingRules().get(0)).isEqualTo(rule);
     }
 }

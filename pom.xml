@@ -15,12 +15,14 @@
         <javafx.version>23.0.2</javafx.version>
         <junit.version>5.13.4</junit.version>
         <assertj.version>3.27.4</assertj.version>
-        <!-- <slf4j.version>2.0.17</slf4j.version>
+        <slf4j.version>2.0.17</slf4j.version>
         <logback.version>1.5.18</logback.version>
-        <commons-io.version>2.20.0</commons-io.version>
+        <!-- <commons-io.version>2.20.0</commons-io.version>
         <jackson.version>2.19.2</jackson.version> -->
         <mockito.version>5.16.1</mockito.version>
         <!-- <equalsverifier.version>4.1</equalsverifier.version> -->
+
+        <testfx.version>4.0.18</testfx.version>
         <mainClassName>ru.antondobrov.filesorter.Main</mainClassName>
         <mainClassNameForShade>ru.antondobrov.filesorter.Launcher</mainClassNameForShade>
     </properties>
@@ -53,17 +55,17 @@
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
-        </dependency> -->
+        </dependency>
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
-        <!-- <dependency>
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
-        </dependency> -->
+        </dependency>
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <!-- <dependency>
             <groupId>commons-io</groupId>
@@ -102,6 +104,12 @@
             <version>${equalsverifier.version}</version>
             <scope>test</scope>
         </dependency> -->
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit5</artifactId>
+            <version>${testfx.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -115,11 +123,6 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -148,6 +151,19 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>${mainClassName}</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.4</version>
+                <configuration>
+                    <argLine>
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.util=ALL-UNNAMED
+                        --add-opens java.base/java.time=ALL-UNNAMED
+                        -javaagent:${settings.localRepository}/org/mockito/mockito-inline/${mockito.version}/mockito-inline-${mockito.version}.jar
+                    </argLine>
                 </configuration>
             </plugin>
         </plugins>

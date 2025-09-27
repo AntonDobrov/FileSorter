@@ -5,12 +5,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-
-<HBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0"
+   xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="ru.antondobrov.filesorter.controllers.ConfigLoadPanelController">
    <children>
       <Region maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-      <Button fx:id="saveConfigButton" mnemonicParsing="false" onAction="#saveConfig" text="%save.config.button" />
-      <Button fx:id="openConfigButton" mnemonicParsing="false" onAction="#openConfig" text="%open.config.button" />
+      <Button fx:id="saveConfigButton" mnemonicParsing="false" onAction="#onSaveConfigButtonClick"
+         text="%save.config.button" />
+      <Button fx:id="openConfigButton" mnemonicParsing="false" onAction="#onOpenConfigButtonClick"
+         text="%open.config.button" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

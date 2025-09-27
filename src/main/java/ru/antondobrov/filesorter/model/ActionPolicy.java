@@ -1,6 +1,7 @@
 package ru.antondobrov.filesorter.model;
 
 import java.util.ResourceBundle;
+import ru.antondobrov.filesorter.utils.ILocalizer;
 
 /**
  * Defines the execution policy for a sorting action.
@@ -11,22 +12,22 @@ public enum ActionPolicy {
     /**
      * Always execute the action.
      */
-    YES("actionpolicy.yes"),
+    YES("action.policy.yes"),
 
     /**
      * Never execute the action.
      */
-    NO("actionpolicy.no"),
+    NO("action.policy.no"),
 
     /**
      * Always ask the user before executing the action.
      */
-    ASK("actionpolicy.ask"),
+    ASK("action.policy.ask"),
 
     /**
      * Indicates that no policy has been selected or an error has occurred.
      */
-    EMPTY("actionpolicy.empty");
+    EMPTY("action.policy.empty");
 
     /**
      * The key for looking up the localized description in a {@link ResourceBundle}.
@@ -52,14 +53,15 @@ public enum ActionPolicy {
     /**
      * Returns a localized, human-readable name for this policy.
      * <p>
-     * It uses the provided {@link ResourceBundle} to look up a string using the key associated with
-     * this policy. If the key is not found in the bundle, the key itself is returned.
-     *
-     * @param bundle The resource bundle containing the translations.
+     * 
+     * @param localizer The {@link ILocalizer} service to use for the translation.
      * @return The localized policy name, or the key itself if a translation is not found.
      */
-    public String getDisplayName(ResourceBundle bundle) {
-        return bundle.containsKey(description) ? bundle.getString(description) : description;
+    public String getDisplayName(ILocalizer localizer) {
+        if (localizer == null) {
+            return getDescription();
+        }
+        return localizer.get(getDescription());
     }
 
     @Override
