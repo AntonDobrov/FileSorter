@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import ru.antondobrov.filesorter.controllers.IConfig;
 
 /**
  * Represents the complete configuration for the file sorting process.
@@ -14,12 +15,12 @@ import javafx.collections.ObservableList;
  * behavior policies (traversing subdirectories, deleting source files, handling duplicates), and a
  * list of sorting rules.
  */
-public class SorterConfig {
+public class SorterConfig implements IConfig {
     private final StringProperty startDirectoryPath;
-    private final ObjectProperty<ActionPolicy> traverseSubdirectories;
+    private final ObjectProperty<ActionPolicy> traverseSubdirectoriesPolicy;
     private final ObjectProperty<ActionPolicy> deleteOnSuccessPolicy;
     private final ObjectProperty<ActionPolicy> duplicateFilesPolicy;
-    private final ObservableList<SortingRule> sortingRules;
+    private final ObservableList<IRuleConfig> sortingRules;
 
     /**
      * Constructs a configuration instance with default values.
@@ -29,7 +30,7 @@ public class SorterConfig {
      */
     public SorterConfig() {
         this.startDirectoryPath = new SimpleStringProperty("");
-        this.traverseSubdirectories = new SimpleObjectProperty<>(ActionPolicy.ASK);
+        this.traverseSubdirectoriesPolicy = new SimpleObjectProperty<>(ActionPolicy.ASK);
         this.deleteOnSuccessPolicy = new SimpleObjectProperty<>(ActionPolicy.ASK);
         this.duplicateFilesPolicy = new SimpleObjectProperty<>(ActionPolicy.ASK);
         this.sortingRules = FXCollections.observableArrayList();
@@ -59,6 +60,7 @@ public class SorterConfig {
      *
      * @return The path property.
      */
+    @Override
     public StringProperty getStartDirectoryPathProperty() {
         return startDirectoryPath;
     }
@@ -69,8 +71,8 @@ public class SorterConfig {
      *
      * @return The {@link ActionPolicy}.
      */
-    public ActionPolicy getTraverseSubdirectories() {
-        return traverseSubdirectories.get();
+    public ActionPolicy getTraverseSubdirectoriesPolicy() {
+        return traverseSubdirectoriesPolicy.get();
     }
 
     /**
@@ -79,7 +81,7 @@ public class SorterConfig {
      * @param traverseSubdirectories The {@link ActionPolicy}.
      */
     public void setTraverseSubdirectories(ActionPolicy traverseSubdirectories) {
-        this.traverseSubdirectories.set(traverseSubdirectories);
+        this.traverseSubdirectoriesPolicy.set(traverseSubdirectories);
     }
 
     /**
@@ -88,8 +90,9 @@ public class SorterConfig {
      *
      * @return The policy property.
      */
-    public ObjectProperty<ActionPolicy> getTraverseSubdirectoriesProperty() {
-        return traverseSubdirectories;
+    @Override
+    public ObjectProperty<ActionPolicy> getTraverseSubdirectoriesPolicyProperty() {
+        return traverseSubdirectoriesPolicy;
     }
 
     /**
@@ -116,6 +119,7 @@ public class SorterConfig {
      *
      * @return The policy property.
      */
+    @Override
     public ObjectProperty<ActionPolicy> getDeleteOnSuccessPolicyProperty() {
         return deleteOnSuccessPolicy;
     }
@@ -144,6 +148,7 @@ public class SorterConfig {
      *
      * @return The policy property.
      */
+    @Override
     public ObjectProperty<ActionPolicy> getDuplicateFilesPolicyProperty() {
         return duplicateFilesPolicy;
     }
@@ -154,19 +159,21 @@ public class SorterConfig {
      * Using an {@link ObservableList} allows the UI to be automatically updated when rules are
      * added, removed, or reordered.
      *
-     * @return The observable list of sorting rule views.
+     * @return The observable list of sorting rules.
      */
-    public ObservableList<SortingRule> getSortingRules() {
+    @Override
+    public ObservableList<IRuleConfig> getRulesList() {
         return sortingRules;
     }
 
     @Override
     public String toString() {
         String values = "Start directory path: " + getStartDirectoryPath() + ";"
-                + "\nTraverse subdirectories: " + getTraverseSubdirectories().toString() + ";"
+                + "\nTraverse subdirectories: " + getTraverseSubdirectoriesPolicy().toString() + ";"
                 + "\nDelete on success: " + getDeleteOnSuccessPolicy().toString() + ";"
                 + "\nDuplicate Files: " + getDuplicateFilesPolicy().toString() + ";"
-                + getSortingRules().toString() + ";";
+                + getRulesList().toString() + ";";
         return "SorterConfig{" + values.replace("\n", "\n\t") + "\n" + "}";
     }
+
 }
