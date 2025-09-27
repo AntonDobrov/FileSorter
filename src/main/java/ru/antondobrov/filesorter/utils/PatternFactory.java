@@ -1,4 +1,4 @@
-package ru.antondobrov.filesorter.services;
+package ru.antondobrov.filesorter.utils;
 
 public class PatternFactory {
     public String create() {
