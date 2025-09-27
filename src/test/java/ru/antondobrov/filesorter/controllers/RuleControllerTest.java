@@ -52,7 +52,8 @@ class RuleControllerTest {
         when(config.getDestinationPathProperty()).thenReturn(pathProperty);
         when(config.getPatterns()).thenReturn(patternsList);
 
-        controller = new RuleController(config, ruleService, directoryChooserService);
+        controller = new RuleController(ruleService, directoryChooserService);
+
 
         patternsListView = new ListView<String>();
         Field patternsListViewFromController =
@@ -66,6 +67,7 @@ class RuleControllerTest {
         destinationDirectoryFieldFromController.setAccessible(true);
         destinationDirectoryFieldFromController.set(controller, destinationDirectoryField);
 
+        controller.setData(config);
         controller.initialize();
     }
 
