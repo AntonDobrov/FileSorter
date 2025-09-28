@@ -17,11 +17,11 @@ class SorterConfigTest {
     @Test
     void shouldInitializeWithDefaultValues() {
         assertThat(config.getStartDirectoryPath()).isEmpty();
-        assertThat(config.getTraverseSubdirectories()).isEqualTo(ActionPolicy.ASK);
+        assertThat(config.getTraverseSubdirectoriesPolicy()).isEqualTo(ActionPolicy.ASK);
         assertThat(config.getDeleteOnSuccessPolicy()).isEqualTo(ActionPolicy.ASK);
         assertThat(config.getDuplicateFilesPolicy()).isEqualTo(ActionPolicy.ASK);
-        assertThat(config.getSortingRules()).isNotNull();
-        assertThat(config.getSortingRules()).isEmpty();
+        assertThat(config.getRulesList()).isNotNull();
+        assertThat(config.getRulesList()).isEmpty();
     }
 
     @Test
@@ -41,14 +41,14 @@ class SorterConfigTest {
     @Test
     void shouldSetAndGetTraverseSubdirectories() {
         config.setTraverseSubdirectories(ActionPolicy.YES);
-        assertThat(config.getTraverseSubdirectories()).isEqualTo(ActionPolicy.YES);
+        assertThat(config.getTraverseSubdirectoriesPolicy()).isEqualTo(ActionPolicy.YES);
     }
 
     @Test
     void shouldReturnNonNullTraverseSubdirectoriesProperty() {
-        assertThat(config.getTraverseSubdirectoriesProperty()).isNotNull();
-        assertThat(config.getTraverseSubdirectoriesProperty().get())
-                .isEqualTo(config.getTraverseSubdirectories());
+        assertThat(config.getTraverseSubdirectoriesPolicyProperty()).isNotNull();
+        assertThat(config.getTraverseSubdirectoriesPolicyProperty().get())
+                .isEqualTo(config.getTraverseSubdirectoriesPolicy());
     }
 
     @Test
@@ -79,12 +79,13 @@ class SorterConfigTest {
 
     @Test
     void shouldAllowAddingAndRetrievingSortingRules() {
-        ObservableList<SortingRule> rules = config.getSortingRules();
-        SortingRule rule = new SortingRule("/home/user/test");
+        ObservableList<IRuleConfig> rules = config.getRulesList();
+        IRuleConfig rule = new SortingRule();
+        rule.getDestinationPathProperty().set("/home/user/test");
 
         rules.add(rule);
 
-        assertThat(config.getSortingRules()).hasSize(1);
-        assertThat(config.getSortingRules().get(0)).isEqualTo(rule);
+        assertThat(config.getRulesList()).hasSize(1);
+        assertThat(config.getRulesList().get(0)).isEqualTo(rule);
     }
 }
