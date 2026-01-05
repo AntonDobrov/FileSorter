@@ -45,5 +45,11 @@
     "files.encoding": "utf8",
     "files.eol": "\n",
     "maven.view": "hierarchical",
-    "editor.rulers": [79, 120]
+    "editor.rulers": [
+        79,
+        120
+    ],
+    "cSpell.words": [
+        "Multimap"
+    ]
 }

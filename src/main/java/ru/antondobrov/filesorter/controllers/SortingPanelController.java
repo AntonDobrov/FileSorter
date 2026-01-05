@@ -8,24 +8,24 @@ import javafx.scene.control.ProgressBar;
  * Controller for the UI panel that initiates the sorting process and displays its progress.
  * <p>
  * This class connects a 'Start Sorting' button to the core sorting logic, encapsulated within an
- * {@link ISorterService}. It also visualizes the sorting progress by binding a {@link ProgressBar}
+ * {@link IsortingService}. It also visualizes the sorting progress by binding a {@link ProgressBar}
  * to a progress property provided by the {@link ISorterConfig} model. This decouples the UI from
  * the actual sorting implementation, allowing the UI to reactively update as the process unfolds.
  */
 public class SortingPanelController {
-    private final ISorterService sorterService;
+    private final ISortingService sortingService;
     private final ISorterConfig config;
 
     /**
      * Constructs a new controller with its required service and configuration dependencies.
      *
-     * @param sorterService The service that encapsulates the core file sorting logic. This
+     * @param sortingService The service that encapsulates the core file sorting logic. This
      *        controller will invoke its {@code startSorting} method.
      * @param config The configuration model which provides the observable property for the sorting
      *        progress, allowing the UI to bind to it.
      */
-    public SortingPanelController(ISorterService sorterService, ISorterConfig config) {
-        this.sorterService = sorterService;
+    public SortingPanelController(ISortingService sortingService, ISorterConfig config) {
+        this.sortingService = sortingService;
         this.config = config;
     }
 
@@ -38,13 +38,13 @@ public class SortingPanelController {
     /**
      * Event handler for the 'Start Sorting' button click.
      * <p>
-     * Delegates the call to the {@link ISorterService} to initiate the file sorting process.
+     * Delegates the call to the {@link IsortingService} to initiate the file sorting process.
      *
      * @param event The {@link ActionEvent} triggered by the button click.
      */
     @FXML
     public void onStartSortingButtonClick(ActionEvent event) {
-        sorterService.startSorting();
+        sortingService.startSorting();
     }
 
     @FXML

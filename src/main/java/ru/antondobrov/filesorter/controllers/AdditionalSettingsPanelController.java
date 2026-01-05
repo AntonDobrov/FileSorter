@@ -64,12 +64,10 @@ public class AdditionalSettingsPanelController {
         configureBox(traverseSubdirectoriesChoiceBox, List.of(ActionPolicy.YES, ActionPolicy.NO),
                 config.getTraverseSubdirectoriesPolicyProperty());
 
-        configureBox(deleteOnSuccessChoiceBox,
-                List.of(ActionPolicy.YES, ActionPolicy.NO, ActionPolicy.ASK),
+        configureBox(deleteOnSuccessChoiceBox, List.of(ActionPolicy.YES, ActionPolicy.NO),
                 config.getDeleteOnSuccessPolicyProperty());
 
-        configureBox(copyInDestinationExistChoiceBox,
-                List.of(ActionPolicy.YES, ActionPolicy.NO, ActionPolicy.ASK),
+        configureBox(copyInDestinationExistChoiceBox, List.of(ActionPolicy.YES, ActionPolicy.NO),
                 config.getDuplicateFilesPolicyProperty());
     }
 }

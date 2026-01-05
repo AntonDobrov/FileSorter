@@ -23,6 +23,7 @@
         <!-- <equalsverifier.version>4.1</equalsverifier.version> -->
 
         <testfx.version>4.0.18</testfx.version>
+        <lombok.version>1.18.42</lombok.version>
         <mainClassName>ru.antondobrov.filesorter.Main</mainClassName>
         <mainClassNameForShade>ru.antondobrov.filesorter.Launcher</mainClassNameForShade>
     </properties>
@@ -109,6 +110,12 @@
             <artifactId>testfx-junit5</artifactId>
             <version>${testfx.version}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
 

@@ -8,7 +8,7 @@ package ru.antondobrov.filesorter.controllers;
  * its implementation (e.g., whether it runs synchronously, asynchronously in a background thread,
  * or uses a specific sorting algorithm).
  */
-public interface ISorterService {
+public interface ISortingService {
 
     /**
      * Starts the file sorting operation.

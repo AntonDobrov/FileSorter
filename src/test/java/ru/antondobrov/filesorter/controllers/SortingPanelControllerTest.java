@@ -20,7 +20,7 @@ class SortingPanelControllerTest {
     @Mock
     ISorterConfig config;
     @Mock
-    ISorterService service;
+    ISortingService service;
 
     ProgressBar progressBar;
 
